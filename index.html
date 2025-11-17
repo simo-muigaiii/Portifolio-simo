@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #bafdc5;
+            --color-secondary: #94ca9d;
+            --color-dark: #2c3c2f;
+            --color-light: #c9efce;
+            --color-accent: #58795e;
+            /* Added a very light green for background contrast */
+            --color-bg-light-green: #f5fdf7; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Scrolling Code Background - Hero Only */
+        .hero-code-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .code-line {
+            position: absolute;
+            white-space: nowrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: scroll-up 40s linear infinite;
+            line-height: 1.8;
+            left: 0;
+            width: 100%;
+        }
+
+        .code-line:nth-child(1) { animation-duration: 40s; animation-delay: 0s; }
+        .code-line:nth-child(2) { animation-duration: 40s; animation-delay: -2.1s; }
+        .code-line:nth-child(3) { animation-duration: 40s; animation-delay: -4.2s; }
+        .code-line:nth-child(4) { animation-duration: 40s; animation-delay: -6.3s; }
+        .code-line:nth-child(5) { animation-duration: 40s; animation-delay: -8.4s; }
+        .code-line:nth-child(6) { animation-duration: 40s; animation-delay: -10.5s; }
+        .code-line:nth-child(7) { animation-duration: 40s; animation-delay: -12.6s; }
+        .code-line:nth-child(8) { animation-duration: 40s; animation-delay: -14.7s; }
+        .code-line:nth-child(9) { animation-duration: 40s; animation-delay: -16.8s; }
+        .code-line:nth-child(10) { animation-duration: 40s; animation-delay: -18.9s; }
+        .code-line:nth-child(11) { animation-duration: 40s; animation-delay: -21s; }
+        .code-line:nth-child(12) { animation-duration: 40s; animation-delay: -23.1s; }
+        .code-line:nth-child(13) { animation-duration: 40s; animation-delay: -25.2s; }
+        .code-line:nth-child(14) { animation-duration: 40s; animation-delay: -27.3s; }
+        .code-line:nth-child(15) { animation-duration: 40s; animation-delay: -29.4s; }
+        .code-line:nth-child(16) { animation-duration: 40s; animation-delay: -31.5s; }
+        .code-line:nth-child(17) { animation-duration: 40s; animation-delay: -33.6s; }
+        .code-line:nth-child(18) { animation-duration: 40s; animation-delay: -35.7s; }
+        .code-line:nth-child(19) { animation-duration: 40s; animation-delay: -37.8s; }
+
+        @keyframes scroll-up {
+            0% {
+                transform: translateY(100vh);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: #2c3c2f;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-dark);
+        }
+
+        /* Hero Section with Glassy Effect */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-dark) 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--color-dark);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            opacity: 0.2;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 3rem 4rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 60%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-dark);
+            font-size: 1.2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            margin-top: 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--color-accent);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 6, 6, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 0, 0, 0.5);
+            background: white;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-dark);
+            position: relative;
+        }
+
+        #skills .section-title {
+            color: white;
+        }
+
+        /* Keep #contact-intro title dark */
+        #contact-intro .section-title {
+            color: var(--color-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--color-accent);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        #skills .section-title::after {
+            background: white;
+        }
+        
+        /* Keep #contact-intro underline accent */
+        #contact-intro .section-title::after {
+            background: var(--color-accent);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease;
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text {
+            padding: 2rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 100%);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .skill-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .skill-card h3 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            padding: 0.5rem 0;
+            color: #666;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* Projects Section */
+        .projects-carousel {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card {
+            min-width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.8rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .project-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--color-light);
+            color: var(--color-accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn.prev {
+            left: -25px;
+        }
+
+        .carousel-btn.next {
+            right: -25px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--color-accent);
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        /* --- NEW CONTACT SECTION STYLES --- */
+
+        /* Section 1: Introduction */
+        #contact-intro {
+            padding: 4rem 2rem;
+            background: var(--color-light); /* Changed from --color-bg-light-green */
+            text-align: center;
+        }
+
+        #contact-intro .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.25rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+        }
+
+        .contact-quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--color-accent);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        .contact-quick-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        .contact-quick-link svg {
+            width: 20px;
+            height: 20px;
+            transition: fill 0.3s ease;
+        }
+
+        /* Section 2: Details and Form */
+        #contact-details {
+            padding: 5rem 2rem;
+            background: var(--color-secondary); /* Changed from --color-light */
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* Columns as in the image */
+            gap: 3rem;
+        }
+
+        .contact-info,
+        .contact-form-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.07);
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--color-dark);
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-light);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .info-item .icon {
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            background: var(--color-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .info-item .info-text h4 {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item .info-text p,
+        .info-item .info-text a {
+            font-size: 1rem;
+            color: #555;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .info-item .info-text a:hover {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        .contact-social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--color-light);
+            color: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-form-card h3 {
+            font-size: 1.8rem;
+            color: var(--color-dark);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee; /* Lighter border */
+            background: #fdfdfd; /* Slightly off-white */
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(88, 121, 94, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.1rem 2rem;
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 121, 94, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: var(--color-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 60, 47, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* --- END OF NEW CONTACT STYLES --- */
+
+        /* Footer */
+        footer {
+            background: var(--color-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Photo Modal */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .photo-modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .photo-modal-content {
+            position: relative;
+            max-width: 500px;
+            width: 90%;
+            animation: scaleIn 0.4s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .photo-modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .photo-modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .photo-modal-close:hover {
+            transform: rotate(90deg);
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .code-line {
+                font-size: 0.75rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-btn.prev {
+                left: 10px;
+            }
+
+            .carousel-btn.next {
+                right: 10px;
+            }
+
+            /* Responsive for new contact sections */
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .contact-form-card {
+                padding: 1.5rem;
+            }
+
+            .contact-info h3,
+            .contact-form-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">SIMON NDUNG'U MUIGAI</div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact-intro">Contact</a></li> <!-- Updated link -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Scrolling Code Background -->
+        <div class="hero-code-bg">
+            <div class="code-line">class RobotController: def __init__(self, robot_id): self.robot_id = robot_id; self.sensors = SensorArray(); self.motors = MotorController(); self.position = Vector3(0,0,0)</div>
+            <div class="code-line">def autonomous_navigation(): while True: current_pos = get_lidar_data(); obstacles = detect_obstacles(current_pos); path = calculate_optimal_path(obstacles)</div>
+            <div class="code-line">void loop() { sensor_data = analogRead(A0); if(sensor_data > threshold) { digitalWrite(MOTOR_PIN, HIGH); servo.write(90); } pwm_value = map(sensor_data, 0, 1023, 0, 255); }</div>
+            <div class="code-line">async function controlRobot() { const position = await getPosition(); const target = calculateTrajectory(position); await moveToTarget(target); updatePID(position, target); }</div>
+            <div class="code-line">for i in range(num_actuators): actuator[i].set_position(inverse_kinematics(target_position)); torque = calculate_torque(current_angle, target_angle); apply_force(torque)</div>
+            <div class="code-line">if (obstacle_detected) { emergency_stop(); recalculate_path(); } else { maintain_speed(target_velocity); adjust_steering(path_deviation); } log_telemetry(timestamp, position, velocity);</div>
+            <div class="code-line">def process_vision(): frame = camera.capture(); edges = cv2.Canny(frame, 50, 150); contours = cv2.findContours(edges); objects = classify_objects(contours); return objects</div>
+            <div class="code-line">PID_controller.compute(setpoint, measured_value); output = Kp * error + Ki * integral + Kd * derivative; motor_speed = constrain(output, MIN_SPEED, MAX_SPEED);</div>
+            <div class="code-line">while not at_destination(): sensor_fusion = merge_data(lidar, camera, imu); kalman_filter.update(sensor_fusion); predicted_state = kalman_filter.predict(); navigate(predicted_state)</div>
+            <div class="code-line">void setup() { Serial.begin(9600); pinMode(ENCODER_A, INPUT); pinMode(ENCODER_B, INPUT); attachInterrupt(digitalPinToInterrupt(ENCODER_A), count_pulse, RISING); }</div>
+            <div class="code-line">class PathPlanner: def a_star_search(self, start, goal): open_set = PriorityQueue(); closed_set = set(); g_score = {start: 0}; f_score = {start: heuristic(start, goal)}</div>
+            <div class="code-line">neural_network.train(training_data); predictions = model.predict(input_data); if confidence > 0.85: execute_action(predictions[0]); else: request_human_intervention();</div>
+            <div class="code-line">def read_encoders(): left_count = encoder_left.read(); right_count = encoder_right.read(); distance = (left_count + right_count) / 2 * wheel_circumference / pulses_per_rev</div>
+            <div class="code-line">ros::Publisher cmd_vel = nh.advertise<geometry_msgs::Twist>("cmd_vel", 10); twist_msg.linear.x = velocity; twist_msg.angular.z = angular_velocity; cmd_vel.publish(twist_msg);</div>
+            <div class="code-line">async def control_loop(): while running: await update_sensors(); state = await estimate_state(); action = policy_network.forward(state); await execute_action(action); await asyncio.sleep(0.01)</div>
+            <div class="code-line">digitalWrite(DIR_PIN, direction); for(int step = 0; step < steps_per_revolution; step++) { digitalWrite(STEP_PIN, HIGH); delayMicroseconds(pulse_width); digitalWrite(STEP_PIN, LOW); }</div>
+            <div class="code-line">quaternion = imu.get_orientation(); euler_angles = quaternion_to_euler(quaternion); roll = euler_angles.x; pitch = euler_angles.y; yaw = euler_angles.z; compensate_drift(yaw);</div>
+            <div class="code-line">trajectory = generate_smooth_path(waypoints); for point in trajectory: desired_position = point; error = desired_position - current_position; control_signal = pid.compute(error)</div>
+            <div class="code-line">void emergency_protocol() { cut_power_to_motors(); activate_brake_system(); broadcast_emergency_signal(); log_incident(timestamp, error_code, sensor_readings); await_manual_reset(); }</div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="profile-photo" onclick="openPhotoModal()">
+                <img src="https://raw.githubusercontent.com/simo-muigaiii/Portifolio-simo/main/Picsart_25-11-12_09-39-28-220.jpg" alt="My Profile Photo">
+            </div>
+            <div>
+                <h1>Hi, I'm Simon Muigai</h1>
+                <p class="subtitle">An Electrical and Electronic Engineer</p>
+                <a href="#contact-intro" class="cta-button">Get In Touch</a> <!-- Updated link -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Modal -->
+    <div class="photo-modal" id="photoModal" onclick="closePhotoModal()">
+        <div class="photo-modal-content" onclick="event.stopPropagation()">
+            <button class="photo-modal-close" onclick="closePhotoModal()">×</button>
+            <img src="https://raw.githubusercontent.com/simo-muigaiii/Portifolio-simo/main/Picsart_25-11-12_09-39-28-220.jpg" alt="Profile">
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Simon</h2>
+        <div class="about-content" data-animate>
+            <div class="about-image">
+                <img src="https://raw.githubusercontent.com/simo-muigaiii/Portifolio-simo/main/20230214_154055.jpg" alt="About Simon">
+            </div>
+            <div class="about-text">
+                <p>Write a compelling introduction about yourself here. Share your passion, what drives you, and what makes you unique in your field.</p>
+                <p>Describe your background, experience, and what you're currently working on or learning. Make it personal and engaging.</p>
+                <p>Highlight your goals and what you're looking to achieve in your career or projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Skills & Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-animate>
+                <h3>Frontend Development</h3>
+                <ul>
+                    <li>HTML5 & CSS3</li>
+                    <li>JavaScript (ES6+)</li>
+                    <li>React / Vue.js</li>
+                    <li>Responsive Design</li>
+                </ul>
+            </div>
+            <div class="skill-card" data-animate>
+                <h3>Backend Development</h3>
+                <ul>
+                    <li>Node.js / Python</li>
+                    <li>RESTful APIs</li>
+                    <li>Database Design</li>
+                    <li>Server Management</li>
+                </ul>
+            </div>
+            <div class="skill-card" data-animate>
+                <h3>Tools & Technologies</h3>
+                <ul>
+                    <li>Git & GitHub</li>
+                    <li>Docker</li>
+                    <li>AWS / Cloud Services</li>
+                    <li>Figma / Design Tools</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-carousel">
+            <button class="carousel-btn prev" onclick="prevProject()">‹</button>
+            <button class="carousel-btn next" onclick="nextProject()">›</button>
+            
+            <div class="carousel-container" id="carouselContainer">
+                <div class="project-card">
+                    <div class="project-image">[Project Image 1]</div>
+                    <div class="project-content">
+                        <h3>Project Title 1</h3>
+                        <p>Describe your project here. Explain what problem it solves, the technologies used, and your role in developing it.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">[Project Image 2]</div>
+                    <div class="project-content">
+                        <h3>Project Title 2</h3>
+                        <p>Describe your second project here. Highlight key features, challenges overcome, and the impact of your work.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">[Project Image 3]</div>
+                    <div class="project-content">
+                        <h3>Project Title 3</h3>
+                        <p>Describe your third project here. Share the story behind it and what you learned during development.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Tailwind CSS</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-dots">
+                <span class="dot active" onclick="goToProject(0)"></span>
+                <span class="dot" onclick="goToProject(1)"></span>
+                <span class="dot" onclick="goToProject(2)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW, SEPARATED CONTACT SECTION 1: INTRO -->
+    <section id="contact-intro">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="contact-subtitle">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
+            Reach out directly via email, or fill out the form to detail your request.
+        </p>
+        <div class="contact-quick-links">
+            <a href="mailto:your.email@example.com" class="contact-quick-link">
+                <!-- SVG for Email -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Email Me
+            </a>
+            <a href="https" class="contact-quick-link" target="_blank">
+                <!-- SVG for LinkedIn -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                LinkedIn
+            </a>
+            <a href="https" class="contact-quick-link" target="_blank">
+                <!-- SVG for GitHub -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c.14-.38.24-.9.24-1.47 0-1.8-1.02-3.2-2.3-3.7.1-.1.1-.2.1-.3 0-.2-.1-.5-.2-.7 0 0-.7-.2-2.2.8.6-.2 1.3-.3 2-.3s-1.4.1-2 .3c-1.5-1-2.2-.8-2.2-.8-.1.2-.2.5-.2.7 0 .1.1.2.1.3-1.3.5-2.3 1.9-2.3 3.7 0 .6.1 1.1.2 1.5-.8.5-1.4 1.4-1.4 2.6v3.87M9 18.13V22"></path></svg>
+                GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- NEW, SEPARATED CONTACT SECTION 2: DETAILS & FORM -->
+    <section id="contact-details">
+        <div class="contact-grid">
+            <!-- Column 1: Contact Information -->
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="info-item">
+                    <div class="icon">📧</div>
+                    <div class="info-text">
+                        <h4>Email</h4>
+                        <p><a href="mailto:your.email@example.com">your.email@example.com</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">📞</div>
+                    <div class="info-text">
+                        <h4>Phone</h4>
+                        <p>+254 700 000 000</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">📍</div>
+                    <div class="info-text">
+                        <h4>Location</h4>
+                        <p>Thika, Nairobi County, Kenya</p>
+                    </div>
+                </div>
+                
+                <div class="contact-social-links">
+                     <a href="#" class="social-link" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                     </a>
+                     <a href="#" class="social-link" aria-label="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c.14-.38.24-.9.24-1.47 0-1.8-1.02-3.2-2.3-3.7.1-.1.1-.2.1-.3 0-.2-.1-.5-.2-.7 0 0-.7-.2-2.2.8.6-.2 1.3-.3 2-.3s-1.4.1-2 .3c-1.5-1-2.2-.8-2.2-.8-.1.2-.2.5-.2.7 0 .1.1.2.1.3-1.3.5-2.3 1.9-2.3 3.7 0 .6.1 1.1.2 1.5-.8.5-1.4 1.4-1.4 2.6v3.87M9 18.13V22"></path></svg>
+                     </a>
+                     <a href="#" class="social-link" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+     
+                     </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Contact Form -->
+            <div class="contact-form-card">
+                <h3>Send a Message</h3>
+                <form id="portfolio-contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Project Discussion (E.E. or Tech Project)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project, from the circuit to the server..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Simon Ndung'u Muigai. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Calculate position
+                    const headerOffset = 80; // Height of sticky nav
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Project carousel
+        let currentProject = 0;
+        const projects = document.querySelectorAll('.project-card');
+        const totalProjects = projects.length;
+
+        function updateCarousel() {
+            const container = document.getElementById('carouselContainer');
+            if(container) {
+                container.style.transform = `translateX(-${currentProject * 100}%)`;
+            }
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                if(dot) {
+                    dot.classList.toggle('active', index === currentProject);
+                }
+            });
+        }
+
+        function nextProject() {
+            if (totalProjects > 0) {
+                currentProject = (currentProject + 1) % totalProjects;
+                updateCarousel();
+            }
+        }
+
+        function prevProject() {
+            if (totalProjects > 0) {
+                currentProject = (currentProject - 1 + totalProjects) % totalProjects;
+                updateCarousel();
+            }
+        }
+
+        function goToProject(index) {
+            currentProject = index;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel
+        if (totalProjects > 0) {
+            setInterval(nextProject, 5000);
+            updateCarousel(); // Initialize dots
+        }
+
+
+        // Photo modal functions
+        function openPhotoModal() {
+            document.getElementById('photoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePhotoModal();
+            }
+        });
+
+        // Simple form submission handler (prevents default)
+        const contactForm = document.getElementById('portfolio-contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the data to a backend service
+                // For now, just log it and show a simple confirmation
+                console.log('Form submitted!');
+                
+                // You could add a "success" message here
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                submitBtn.innerText = 'Message Sent!';
+                submitBtn.style.background = 'var(--color-secondary)';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerText = 'Send Message';
+                    submitBtn.style.background = 'var(--color-accent)';
+                    submitBtn.disabled = false;
+                    contactForm.reset();
+                }, 3000);
+            });
+        }
+
+    </script>
+</body>
+</html>
