@@ -1116,7 +1116,7 @@
             Reach out directly via email, or fill out the form to detail your request.
         </p>
         <div class="contact-quick-links">
-            <a href="simonlaws269@gmail.com" class="contact-quick-link">
+            <a href="https://mail.google.com/mail/?view=cm&to=simonlaws269@gmail.com&su=Contact%20from%20Portfolio&body=Hi%20Simon%2C%0A%0AI'd%20like%20to%20discuss..." class="contact-quick-link">
                 <!-- SVG for Email -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 Email Me
@@ -1149,7 +1149,12 @@
                     </div>
                     <div class="info-text">
                         <h4>Email</h4>
-                        <p><a href="https://mail.google.com/mail">simonlaws269@gmail.com</a></p>
+                        <p><!-- Opens Gmail compose in a new browser tab -->
+                            <a href="https://mail.google.com/mail/?view=cm&to=simonlaws269@gmail.com&su=Contact%20from%20Portfolio&body=Hi%20Simon%2C%0A%0AI'd%20like%20to%20discuss..." target="_blank" rel="noopener">
+                             simonlaws269@gmail.com
+                            </a>
+                        </p>
+                        
                     </div>
                 </div>
                 <div class="info-item">
@@ -1188,7 +1193,7 @@
             <!-- Column 2: Contact Form -->
            <div class="contact-form-card">
              <h3>Send a Message</h3>
-                 <form id="portfolio-contact-form" action="https://formsubmit.co/simonlaws269@gmail.com" method="POST">
+                 <form id="portfolio-contact-form">
 
                  <!-- Recommended Hidden Inputs -->
                     <input type="hidden" name="_captcha" value="false">
@@ -1226,6 +1231,27 @@
     <footer>
         <p>&copy; 2025 Simon Ndung'u Muigai. All rights reserved.</p>
     </footer>
+
+     <!-- Email js -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+        <script>
+         (function(){
+           emailjs.init("xgjayg-pG613uuHEs");
+         })();
+    
+        document.getElementById("portfolio-contact-form").addEventListener("submit", function(e) {
+         e.preventDefault(); // Stop page refresh
+
+             emailjs.sendForm("service_3kjluov", "template_h1lsjzk", this)
+                .then(function() {
+                  alert("Message sent successfully!");
+                }, function(error) {
+                    alert("Failed to send message. Please try again.");
+                  console.log("Error:", error);
+             });
+        });
+    </script>
+
 
     <script>
         // Mobile menu toggle
